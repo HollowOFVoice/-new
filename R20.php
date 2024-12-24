@@ -207,12 +207,19 @@
         if (isset($_REQUEST['date1']) && isset($_REQUEST['date2'])) {
             $date1 = explode('-', strip_tags(trim($_REQUEST['date1'])));
             $date2 = explode('-', strip_tags(trim($_REQUEST['date2'])));
-            $date1sec = mktime(0, 0, 0, $date1[1], $date1[2], $date1[0]);
-            $date2sec = mktime(0, 0, 0, $date2[1], $date2[2], $date2[0]);
-            echo "Более поздняя дата: " . ($date1sec > $date2sec ? date('Y-m-d', $date1sec) : date('Y-m-d', $date2sec));
+
+            // Проверяем, что обе даты содержат 3 элемента
+            if (count($date1) === 3 && count($date2) === 3) {
+                $date1sec = mktime(0, 0, 0, $date1[1], $date1[2], $date1[0]);
+                $date2sec = mktime(0, 0, 0, $date2[1], $date2[2], $date2[0]);
+                echo "Более поздняя дата: " . ($date1sec > $date2sec ? date('Y-m-d', $date1sec) : date('Y-m-d', $date2sec));
+            } else {
+                echo "Неверный формат даты. Пожалуйста, используйте формат ГГГГ-ММ-ДД.";
+            }
         }
         ?>
     </p>
+    
 </div>
 
 <div class="task">
